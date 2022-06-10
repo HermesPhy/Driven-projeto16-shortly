@@ -31,3 +31,17 @@ export const getUrlId = async (req, res) => {
         res.sendStatus(500)
     }
 }
+
+export const getShortUrl = async (req, res) => {
+    const { dbUrl } = res.locals;
+    const { url, shortUrl, visitCount } = dbUrl;
+    try {
+        await db.query(`
+        UPDATE urls
+        SET "visitCount" = ${visitCount + 1}
+        WHERE "shortUrl" = $1`, [shortUrl]);
+        res.redirect(url)
+    } catch {
+        res.sendStatus(500)
+    }
+}
