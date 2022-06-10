@@ -1,5 +1,5 @@
 import db from "../config/db.js";
-import { urlSchema, urlIdSchema } from "../schemas/urlSchema.js";
+import { urlSchema, urlIdSchema } from "../schemas/urlsSchema.js";
 
 export const urlMiddleware = async (req, res, next) => {
     const validation = urlSchema.validate(req.body, { abortEarly: false });

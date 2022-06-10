@@ -14,3 +14,20 @@ export const postUrl = async (req, res) => {
         res.sendStatus(500)
     }
 }
+
+export const getUrlId = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const url = await db.query(`
+        SELECT id, "shortUrl", url
+        FROM urls WHERE id = $1`, [id]);
+        const objUrl = {
+            id,
+            shortUrl: url.rows[0].shortUrl,
+            url: url.rows[0].url
+        }
+        res.send(objUrl)
+    } catch {
+        res.sendStatus(500)
+    }
+}
