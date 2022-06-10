@@ -45,3 +45,13 @@ export const getShortUrl = async (req, res) => {
         res.sendStatus(500)
     }
 }
+
+export const deleteUrl = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await db.query('DELETE FROM urls WHERE id = $1', [id]);
+        res.sendStatus(204)
+    } catch {
+        res.sendStatus(500)
+    }
+}
